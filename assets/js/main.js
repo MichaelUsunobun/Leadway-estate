@@ -173,9 +173,43 @@
         }
     });
 
-    // Prevent video loading until needed
+    // Enhance Navigation
+    $(window).on('scroll', function() {
+        if ($(window).scrollTop() > 100) {
+            $('#nav').addClass('scrolled');
+        } else {
+            $('#nav').removeClass('scrolled');
+        }
+    });
+
+    // Optimize Video Loading
     $('video').each(function() {
         $(this).attr('preload', 'metadata');
+        $(this).attr('loading', 'lazy');
+    });
+
+    // Enhance Mobile Menu
+    $('.navPanelToggle').on('click', function(e) {
+        e.preventDefault();
+        $('body').toggleClass('is-navPanel-visible');
+    });
+
+    // Close menu when clicking outside
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('#navPanel, .navPanelToggle').length) {
+            $('body').removeClass('is-navPanel-visible');
+        }
+    });
+
+    // Smooth scroll for anchor links
+    $('a[href^="#"]').on('click', function(e) {
+        e.preventDefault();
+        var target = $(this.hash);
+        if (target.length) {
+            $('html, body').animate({
+                scrollTop: target.offset().top
+            }, 1000);
+        }
     });
 
 })(jQuery);
