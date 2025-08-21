@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Property Details - Leadway</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <a href="index.html" class="logo">Leadway</a>
+        </header>
+
+        <!-- Nav -->
+        <nav id="nav">
+            <ul class="links">
+                <li><a href="index.html">Properties</a></li>
+                <li><a href="generic.html">About Us</a></li>
+                <li><a href="contact.html">Get in Touch</a></li>
+            </ul>
+            <ul class="icons">
+                <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                <li><a href="https://www.facebook.com/kenny.agiobasimi" class="icon brands fa-facebook-f" target="_blank"><span class="label">Facebook</span></a></li>
+                <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+            </ul>
+            <a href="#navPanel" class="navPanelToggle"><span class="label">Menu</span></a>
+        </nav>
+
+        <!-- Main -->
+        <div id="main">
+            <!-- Dynamic Post Section -->
+            <section class="post" id="property-content">
+                <!-- Content will be loaded here by JavaScript -->
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <!-- Footer social icons -->
+            <section>
+                <h3>Social</h3>
+                <ul class="icons alt">
+                    <li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+                    <li><a href="https://www.facebook.com/kenny.agiobasimi" class="icon brands alt fa-facebook-f" target="_blank"><span class="label">Facebook</span></a></li>
+                    <li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+                </ul>
+            </section>
+            <ul><li>&copy; Leadway Corporate Developers Ltd</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <!-- Our Custom Scripts -->
+    <script src="assets/js/data.js"></script>
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const propertyId = parseInt(urlParams.get('id'));
+            const propertyContent = document.getElementById('property-content');
+
+            if (!propertyId) {
+                propertyContent.innerHTML = '<h1>Property not found.</h1><p>Please select a property from our main page.</p>';
+                return;
+            }
+
+            const property = properties.find(p => p.id === propertyId);
+
+            if (property) {
+                document.title = property.title + " - Leadway"; // Update page title
+                let featuresHtml = property.features.map(feature => `<li>${feature}</li>`).join('');
+
+                propertyContent.innerHTML = `
+                    <header class="major">
+                        <span class="date">${property.date}</span>
+                        <h1>${property.title}</h1>
+                        <p>Status: ${property.status}</p>
+                    </header>
+                    <div class="image main"><video src="${property.videoSrc}" type="video/mp4" controls preload="metadata" style="width:100%; height:auto;"></video></div>
+                    <h2>Property Overview</h2>
+                    <p>${property.description}</p>
+                    <div class="row">
+                        <div class="col-6 col-12-small">
+                            <h3>Key Features</h3>
+                            <ul>${featuresHtml}</ul>
+                        </div>
+                        <div class="col-6 col-12-small">
+                            <h3>Pricing</h3>
+                            <div class="price-tag" style="background: #c7a17a; color: #fff; padding: 10px 20px; border-radius: 4px; font-size: 1.2em; font-weight: 700; margin-top: 1em; display:inline-block;">
+                                ${property.price}
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <ul class="actions special">
+                        <li><a href="contact.html" class="button primary large">Inquire About This Property</a></li>
+                    </ul>
+                `;
+            } else {
+                propertyContent.innerHTML = '<h1>Property not found.</h1><p>The property ID is invalid. Please return to the homepage.</p>';
+            }
+        };
+    </script>
+</body>
+</html>
