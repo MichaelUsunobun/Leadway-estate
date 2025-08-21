@@ -139,4 +139,43 @@
         });
     }
 
+    // Mobile Navigation Setup
+    $navPanelToggle = $(
+        '<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>'
+    ).appendTo($nav);
+
+    // Create and append the mobile navigation panel
+    $navPanel = $(
+        '<div id="navPanel">' +
+            '<nav>' +
+            $('#nav').find('.links').clone().html() +
+            '</nav>' +
+            '<a href="#navPanel" class="close"></a>' +
+        '</div>'
+    ).appendTo($body);
+
+    // Handle mobile menu toggle
+    $navPanelToggle.on('click', function(e) {
+        e.preventDefault();
+        $body.toggleClass('is-navPanel-visible');
+    });
+
+    // Handle closing mobile menu
+    $navPanel.find('.close').on('click', function(e) {
+        e.preventDefault();
+        $body.removeClass('is-navPanel-visible');
+    });
+
+    // Close menu when clicking outside
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('#navPanel, .navPanelToggle').length) {
+            $body.removeClass('is-navPanel-visible');
+        }
+    });
+
+    // Prevent video loading until needed
+    $('video').each(function() {
+        $(this).attr('preload', 'metadata');
+    });
+
 })(jQuery);

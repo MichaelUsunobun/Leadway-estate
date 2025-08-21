@@ -49,9 +49,74 @@
             display: block; /* To center the video */
             margin: 0 auto; /* To center the video */
         }
+
+        /* Video Optimization */
+        video {
+            max-width: 100%;
+            height: auto;
+            background: #000;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Mobile Responsiveness Fixes */
         @media screen and (max-width: 736px) {
-            article.post {
-                padding: 2em 1em; /* Reduce padding for smaller screens */
+            .post {
+                padding: 2em 1.5em 0.1em 1.5em !important;
+            }
+            
+            .posts article {
+                width: 100% !important;
+                margin: 0 0 2em 0 !important;
+            }
+            
+            #header {
+                padding: 3em 1.5em !important;
+            }
+            
+            #nav {
+                display: block;
+                width: 100%;
+                overflow-x: hidden;
+            }
+            
+            .navPanelToggle {
+                display: block !important;
+            }
+            
+            #nav .links {
+                display: none;
+            }
+            
+            #nav.visible .links {
+                display: block;
+                background: #212931;
+                position: absolute;
+                left: 0;
+                top: 100%;
+                width: 100%;
+                padding: 1em;
+                z-index: 10000;
+            }
+            
+            #nav.visible .links li {
+                display: block;
+                margin: 0;
+                padding: 0.5em 0;
             }
         }
     </style>
